@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: "Noto Serif", "Source Serif 4", Georgia, serif;
+    --font-serif: "Noto Serif", "Source Serif 4", "Cormorant Infant", Georgia, serif;
+    --font-whimsical: "Be Vietnam Pro", "Itim", "Noto Sans", sans-serif;
+    --font-handwritten: "Patrick Hand", "Be Vietnam Pro", cursive;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0b100d;
+    color: #f7f0e2;
+    font-family: var(--font-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+  }
+}
+
+@keyframes magicalGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 16px rgba(255, 248, 230, 0.45),
+      0 0 32px rgba(246, 235, 208, 0.28),
+      0 2px 14px rgba(6, 10, 6, 0.85);
+  }
+  50% {
+    text-shadow:
+      0 0 26px rgba(255, 253, 242, 0.78),
+      0 0 52px rgba(250, 242, 220, 0.52),
+      0 2px 18px rgba(6, 10, 6, 0.92);
+  }
+  75% {
+    text-shadow:
+      0 0 20px rgba(255, 250, 235, 0.58),
+      0 0 38px rgba(246, 238, 212, 0.35),
+      0 2px 14px rgba(6, 10, 6, 0.85);
+  }
+}
+
+@keyframes moonlightDrift {
+  0%, 100% {
+    opacity: 0.16;
+    transform: translate3d(-1%, -1%, 0) scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: translate3d(1%, 1%, 0) scale(1.03);
+  }
+}
+
+@keyframes frameShimmer {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes blossomPulse {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes buttonShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-magical-glow {
+  animation: magicalGlow 7s ease-in-out infinite;
+}
+
+.animate-moonlight-haze {
+  animation: moonlightDrift 18s ease-in-out infinite;
+}
+
+.animate-frame-shimmer {
+  animation: frameShimmer 8s ease-in-out infinite;
+}
+
+.animate-blossom-glow {
+  animation: blossomPulse 5s ease-in-out infinite;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 253, 242, 0.15),
+    transparent
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+
+.group:hover .shimmer-effect::after {
+  animation: buttonShimmer 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes sigilSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sigilCounterSpin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes sigilGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(255, 245, 220, 0.45));
+    opacity: 0.85;
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(255, 250, 235, 0.85));
+    opacity: 1;
+  }
+}
+
+.animate-sigil-spin {
+  animation: sigilSpin 26s linear infinite;
+}
+
+.animate-sigil-counter {
+  animation: sigilCounterSpin 18s linear infinite;
+}
+
+.animate-sigil-pulse {
+  animation: sigilGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes rungMongVineSway {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(1.6deg) scale(1.015);
+  }
+}
+
+@keyframes rungMongFireflyPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.8) translateY(0px);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.2) translateY(-6px);
+  }
+}
+
+@keyframes rungMongPetalDrift {
+  0% {
+    transform: translate3d(0, -10px, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.72;
+  }
+  85% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(28px, 140px, 0) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rungMongLightRay {
+  0%, 100% {
+    opacity: 0.18;
+    transform: rotate(-12deg) scaleY(1);
+  }
+  50% {
+    opacity: 0.36;
+    transform: rotate(-10deg) scaleY(1.05);
+  }
+}
+
+.animate-rm-vine {
+  animation: rungMongVineSway 7s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+.animate-rm-firefly {
+  animation: rungMongFireflyPulse 4.2s ease-in-out infinite;
+}
+
+.animate-rm-petal {
+  animation: rungMongPetalDrift 11s ease-in-out infinite;
+}
+
+.animate-rm-ray {
+  animation: rungMongLightRay 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-magical-glow,
+  .animate-moonlight-haze,
+  .animate-frame-shimmer,
+  .animate-blossom-glow,
+  .animate-sigil-spin,
+  .animate-sigil-counter,
+  .animate-sigil-pulse,
+  .animate-rm-vine,
+  .animate-rm-firefly,
+  .animate-rm-petal,
+  .animate-rm-ray {
+    animation: none !important;
+  }
+}
+
