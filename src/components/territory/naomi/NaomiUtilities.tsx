@@ -30,7 +30,7 @@ export const NaomiUtilities: React.FC = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.0, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-30 flex items-center gap-2 sm:gap-2.5"
+        className="fixed top-2.5 right-2.5 sm:top-5 sm:right-6 z-40 flex items-center gap-1.5 sm:gap-2.5 max-w-[calc(100vw-1.25rem)]"
       >
         {/* 1. Compact Antique Music Plaque */}
         <NaomiMusicPlayer />
@@ -41,7 +41,7 @@ export const NaomiUtilities: React.FC = () => {
           onClick={() => setShowFeedbackModal(true)}
           title="Gửi thư tâm tình đến Naomi"
           aria-label="Send Feedback"
-          className="group relative flex items-center justify-center w-9 h-9 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
+          className="group relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 shrink-0 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
           style={{
             borderRadius: '3px',
             background: 'linear-gradient(145deg, #fbf6ea 0%, #efe3ce 100%)',
@@ -49,7 +49,7 @@ export const NaomiUtilities: React.FC = () => {
             boxShadow: '0 3px 10px rgba(64, 46, 28, 0.1)',
           }}
         >
-          <span className="text-sm text-[#6a4e32] group-hover:scale-110 transition-transform">
+          <span className="text-xs sm:text-sm text-[#6a4e32] group-hover:scale-110 transition-transform">
             ✉
           </span>
         </button>
@@ -60,7 +60,7 @@ export const NaomiUtilities: React.FC = () => {
           onClick={() => setShowDonateModal(true)}
           title="Nuôi Naomi"
           aria-label="Nuôi Naomi"
-          className="group relative flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
+          className="group relative flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 shrink-0 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
           style={{
             borderRadius: '3px',
             background: 'linear-gradient(145deg, #fbf3ef 0%, #eed8d4 100%)',
@@ -73,7 +73,7 @@ export const NaomiUtilities: React.FC = () => {
             ❦
           </span>
           <span
-            className="text-[0.72rem] sm:text-xs tracking-[0.09em] text-[#59363d] font-medium lowercase"
+            className="text-[0.68rem] sm:text-xs tracking-[0.08em] sm:tracking-[0.09em] text-[#59363d] font-medium lowercase whitespace-nowrap"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             nuôi naomi ♡
@@ -84,7 +84,7 @@ export const NaomiUtilities: React.FC = () => {
       {/* FEEDBACK ILLUMINATED MANUSCRIPT MODAL */}
       <AnimatePresence>
         {showFeedbackModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export const NaomiUtilities: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-md p-6 sm:p-8 text-[#2c2016] overflow-hidden"
+              className="relative w-full max-w-md max-h-[88vh] overflow-y-auto p-5 sm:p-8 text-[#2c2016] my-auto"
               style={{
                 borderRadius: '4px 6px 4px 6px',
                 background:
@@ -257,7 +257,7 @@ export const NaomiUtilities: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 14 }}
               transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-lg p-6 sm:p-9 text-[#2c2016] overflow-hidden my-auto"
+              className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-8 text-[#2c2016] my-auto"
               style={{
                 borderRadius: '5px 7px 5px 7px',
                 background:

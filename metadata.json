@@ -2,5 +2,5 @@
   "name": "SILVESTRE",
   "description": "An enchanted fairy-tale forest and shared character archive for a collective of five roleplay creators.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": []
 }

@@ -31,7 +31,7 @@ export const NaomiAboutMeCard: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       aria-label="Trang bản thảo chân dung Naomi — Chân dung chủ vườn"
-      className="group/page relative w-full max-w-4xl mx-auto my-6 p-6 sm:p-10 md:p-12 select-none overflow-visible transition-all duration-700"
+      className="group/page relative w-full max-w-4xl mx-auto my-4 sm:my-6 p-4 sm:p-10 md:p-12 select-none overflow-visible transition-all duration-700"
     >
       {/* Renaissance Pink Fairy-Tale Garden Portrait Plate / Manuscript Sheet */}
       <div
@@ -157,7 +157,7 @@ export const NaomiAboutMeCard: React.FC = () => {
         initial={{ opacity: 0, x: -16, rotate: -14 }}
         animate={{ opacity: 1, x: 0, rotate: -10 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="absolute -top-6 -left-3 sm:-top-8 sm:-left-5 z-20 w-28 sm:w-36 md:w-40 cursor-pointer pointer-events-auto select-none"
+        className="absolute -top-4 -left-1 sm:-top-8 sm:-left-5 z-20 w-20 sm:w-36 md:w-40 cursor-pointer pointer-events-auto select-none"
         title="Bức thư gửi từ lâu đài mộng ảo (nhấp để xem lời nhắn ♡)"
       >
         <img
@@ -185,7 +185,7 @@ export const NaomiAboutMeCard: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 4 }}
             transition={{ duration: 0.25 }}
-            className="absolute -top-14 left-6 sm:left-10 z-30 max-w-xs px-3.5 py-2 bg-[#fdf5f0] border border-[#d8adb6] shadow-md text-xs text-[#482830] italic"
+            className="absolute -top-12 left-4 sm:left-10 z-30 max-w-[260px] sm:max-w-xs px-3 py-1.5 sm:px-3.5 sm:py-2 bg-[#fdf5f0] border border-[#d8adb6] shadow-md text-[0.72rem] sm:text-xs text-[#482830] italic"
             style={{
               fontFamily: 'var(--font-serif)',
               borderRadius: '3px',
@@ -215,7 +215,7 @@ export const NaomiAboutMeCard: React.FC = () => {
           scale: { duration: 4.2, repeat: Infinity, ease: 'easeInOut' },
           opacity: { duration: 0.9, delay: 0.3 },
         }}
-        className="absolute -bottom-6 -right-3 sm:-bottom-8 sm:-right-5 z-20 w-32 sm:w-40 md:w-44 cursor-pointer pointer-events-auto select-none"
+        className="absolute -bottom-4 right-0 sm:-bottom-8 sm:-right-5 z-20 w-24 sm:w-36 md:w-44 cursor-pointer pointer-events-auto select-none"
         title="Mèo nhỏ ngủ say bên trang sách (nhấp vào bé để xoa đầu ♡)"
       >
         <img
@@ -256,60 +256,60 @@ export const NaomiAboutMeCard: React.FC = () => {
       {/* ======================================================== */}
       {/* "CHÂN DUNG CHỦ VƯỜN" SECTION CONTENT (ASSEMBLY BY HAND)    */}
       {/* ======================================================== */}
-      <div className="relative z-10 flex flex-col items-center">
+      <div className="relative z-10 flex flex-col items-center w-full">
         {/* Section Header */}
-        <div className="text-center mb-6 sm:mb-8">
+        <div className="text-center mb-4 sm:mb-8">
           <span
-            className="block text-[0.64rem] uppercase tracking-[0.28em] text-[#a06472] mb-1"
+            className="block text-[0.6rem] sm:text-[0.64rem] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-[#a06472] mb-0.5 sm:mb-1"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             TABULA AUCTORIS · CHÂN DUNG CHỦ VƯỜN
           </span>
           <h2
-            className="text-xl sm:text-2xl md:text-3xl text-[#3f2027] font-normal lowercase tracking-[0.12em]"
+            className="text-lg sm:text-2xl md:text-3xl text-[#3f2027] font-normal lowercase tracking-[0.12em]"
             style={{ fontFamily: 'var(--font-whimsical)' }}
           >
             chân dung chủ vườn
           </h2>
 
-          <div className="flex items-center justify-center gap-2 mt-1.5 opacity-80">
-            <span className="w-14 h-[0.8px] bg-gradient-to-r from-transparent to-[#d096a2]" />
-            <span className="text-[0.68rem] text-[#b36778] select-none" aria-hidden="true">
+          <div className="flex items-center justify-center gap-2 mt-1 sm:mt-1.5 opacity-80">
+            <span className="w-10 sm:w-14 h-[0.8px] bg-gradient-to-r from-transparent to-[#d096a2]" />
+            <span className="text-[0.64rem] sm:text-[0.68rem] text-[#b36778] select-none" aria-hidden="true">
               ❧ 𖤓 ❧
             </span>
-            <span className="w-14 h-[0.8px] bg-gradient-to-l from-transparent to-[#d096a2]" />
+            <span className="w-10 sm:w-14 h-[0.8px] bg-gradient-to-l from-transparent to-[#d096a2]" />
           </div>
         </div>
 
-        {/* Composition: [ Newly Attached Image ] + [ Inscribed Quote & Socials ] */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-8 sm:gap-10 md:gap-14 px-2 sm:px-4 mb-4">
-          {/* 1. LEFT SIDE: NEW ATTACHED IMAGE (image_6eae7962.png) WITH ORIGINAL SHAPE PRESERVED & INTERACTIVE VIEWER */}
+        {/* Composition: [ Attached Image ] + [ Inscribed Quote & Socials ] */}
+        <div className="w-full flex flex-col md:flex-row items-center justify-center gap-5 sm:gap-8 md:gap-14 px-1 sm:px-4 mb-2 sm:mb-4">
+          {/* 1. PORTRAIT IMAGE WITH ORIGINAL SHAPE PRESERVED & INTERACTIVE VIEWER */}
           <div className="relative group/portrait shrink-0">
             {/* Soft Warm Rose Halo */}
             <div
-              className="absolute -inset-3.5 rounded-[12px] opacity-45 group-hover/portrait:opacity-90 transition-opacity duration-700 pointer-events-none blur-md"
+              className="absolute -inset-2.5 sm:-inset-3.5 rounded-[12px] opacity-45 group-hover/portrait:opacity-90 transition-opacity duration-700 pointer-events-none blur-md"
               style={{
                 background:
                   'radial-gradient(circle, rgba(255, 215, 224, 0.9) 0%, rgba(226, 178, 192, 0.45) 65%, transparent 100%)',
               }}
             />
 
-            {/* Vintage Renaissance Portrait Frame (Preserving Original Image Shape & Proportions) */}
+            {/* Vintage Renaissance Portrait Frame */}
             <div
               onClick={() => setIsModalOpen(true)}
-              className="relative p-2.5 sm:p-3 cursor-pointer transition-all duration-500 group-hover/portrait:scale-[1.025]"
+              className="relative p-2 sm:p-2.5 md:p-3 cursor-pointer transition-all duration-500 group-hover/portrait:scale-[1.02]"
               style={{
                 borderRadius: '4px 6px 4px 6px',
                 background: 'linear-gradient(145deg, #fdf6ec 0%, #f1decb 100%)',
-                border: '1.8px solid rgba(196, 148, 132, 0.88)',
+                border: '1.6px solid rgba(196, 148, 132, 0.88)',
                 boxShadow:
-                  '0 12px 32px rgba(62, 38, 44, 0.16), inset 0 0 16px rgba(255, 240, 244, 0.85)',
+                  '0 10px 26px rgba(62, 38, 44, 0.14), inset 0 0 14px rgba(255, 240, 244, 0.85)',
               }}
               title="Nhấp để phóng to bức tranh chủ vườn ♡"
             >
               {/* Inner Double Dashed Rule */}
               <div
-                className="absolute inset-1.5 pointer-events-none"
+                className="absolute inset-1 sm:inset-1.5 pointer-events-none"
                 style={{
                   border: '0.8px dashed rgba(188, 138, 122, 0.65)',
                 }}
@@ -319,11 +319,11 @@ export const NaomiAboutMeCard: React.FC = () => {
                 <img
                   src="/assets/aistudio/image_6eae7962.png"
                   alt="Chân dung chủ vườn Naomi"
-                  className="w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] h-auto object-cover filter contrast-[1.04] brightness-[1.02]"
+                  className="w-full max-w-[190px] xs:max-w-[220px] sm:max-w-[280px] md:max-w-[340px] h-auto object-contain filter contrast-[1.04] brightness-[1.02]"
                 />
 
                 {/* Subtle Magnify Badge on Hover */}
-                <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-[#42222a]/80 text-[#fdf5f0] text-[0.62rem] uppercase tracking-[0.14em] opacity-0 group-hover/portrait:opacity-100 transition-opacity" style={{ borderRadius: '2px' }}>
+                <div className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-[#42222a]/80 text-[#fdf5f0] text-[0.58rem] uppercase tracking-[0.12em] opacity-0 group-hover/portrait:opacity-100 transition-opacity" style={{ borderRadius: '2px' }}>
                   phóng to 🔍
                 </div>
               </div>
@@ -337,40 +337,40 @@ export const NaomiAboutMeCard: React.FC = () => {
               ✦
             </span>
             <span
-              className="absolute top-1/2 -left-3.5 -translate-y-1/2 text-xs text-[#8a9e82] select-none pointer-events-none"
+              className="absolute top-1/2 -left-3 -translate-y-1/2 text-xs text-[#8a9e82] select-none pointer-events-none"
               aria-hidden="true"
             >
               🌿
             </span>
             <span
-              className="absolute -bottom-1.5 -right-1 text-xs text-[#c97d75] select-none pointer-events-none"
+              className="absolute -bottom-1 -right-1 text-xs text-[#c97d75] select-none pointer-events-none"
               aria-hidden="true"
             >
               ✿
             </span>
           </div>
 
-          {/* 2. RIGHT SIDE: INSCRIBED MANUSCRIPT QUOTE & SOCIAL PLAQUES */}
-          <div className="flex flex-col items-center md:items-start gap-6 max-w-sm text-center md:text-left">
+          {/* 2. INSCRIBED MANUSCRIPT QUOTE & SOCIAL PLAQUES */}
+          <div className="flex flex-col items-center md:items-start gap-4 sm:gap-6 max-w-sm w-full text-center md:text-left">
             {/* Inscribed Quote Box */}
             <div
-              className="relative px-6 py-5 bg-[#fdfaf5]/90 border border-[#d8b4bc] shadow-2xs"
+              className="relative w-full px-4 py-3.5 sm:px-6 sm:py-5 bg-[#fdfaf5]/90 border border-[#d8b4bc] shadow-2xs"
               style={{
                 borderRadius: '3px',
                 boxShadow: 'inset 0 0 16px rgba(250, 226, 232, 0.55)',
               }}
             >
-              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[0.6rem] uppercase tracking-[0.24em] text-[#a06472] opacity-85 mb-2.5 select-none">
+              <div className="flex items-center justify-center md:justify-start gap-1.5 text-[0.56rem] sm:text-[0.6rem] uppercase tracking-[0.22em] text-[#a06472] opacity-85 mb-1.5 sm:mb-2 select-none">
                 <span>❦</span>
                 <span style={{ fontFamily: 'var(--font-serif)' }}>INSCRIPTIO CORDIS</span>
-                <span className="w-6 h-[0.7px] bg-[#d096a2]" />
+                <span className="w-5 sm:w-6 h-[0.7px] bg-[#d096a2]" />
               </div>
 
               <blockquote
-                className="relative text-[0.92rem] sm:text-[1.02rem] italic text-[#482830] leading-relaxed tracking-[0.03em] font-light select-text"
+                className="relative text-[0.84rem] sm:text-[0.98rem] italic text-[#482830] leading-snug sm:leading-relaxed tracking-[0.02em] font-light select-text"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
-                <span className="text-[#b36778] font-serif text-base mr-1 select-none opacity-80">
+                <span className="text-[#b36778] font-serif text-sm sm:text-base mr-0.5 select-none opacity-80">
                   “
                 </span>
                 dear darling,
@@ -378,14 +378,14 @@ export const NaomiAboutMeCard: React.FC = () => {
                 you will never be unloved by me
                 <br />
                 you are too well tangled in my soul.
-                <span className="text-[#b36778] font-serif text-base ml-1 select-none opacity-80">
+                <span className="text-[#b36778] font-serif text-sm sm:text-base ml-0.5 select-none opacity-80">
                   ”
                 </span>
               </blockquote>
 
-              <div className="flex items-center justify-center md:justify-start gap-2 mt-3 opacity-75 text-[0.68rem] text-[#8c525f] select-none">
+              <div className="flex items-center justify-center md:justify-start gap-2 mt-2 sm:mt-3 opacity-75 text-[0.64rem] sm:text-[0.68rem] text-[#8c525f] select-none">
                 <span>𖤓</span>
-                <span className="w-12 h-[0.7px] bg-[#d096a2]" />
+                <span className="w-10 sm:w-12 h-[0.7px] bg-[#d096a2]" />
                 <span className="italic text-[#b0586b]" style={{ fontFamily: 'var(--font-handwritten)' }}>
                   — naomi
                 </span>
@@ -393,12 +393,12 @@ export const NaomiAboutMeCard: React.FC = () => {
             </div>
 
             {/* Social Manuscript Plaques (Facebook & Discord) */}
-            <div className="relative flex items-center justify-center gap-5">
+            <div className="relative flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-5 w-full">
               <a
                 href="https://www.facebook.com/profile.php?id=61593294097593"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link px-4 py-1.5 text-xs font-medium lowercase tracking-[0.1em] text-[#482830] hover:text-[#211216] transition-all duration-300 flex items-center gap-1.5 cursor-pointer hover:-translate-y-0.5 focus:outline-none"
+                className="group/link px-3.5 py-1.5 text-xs font-medium lowercase tracking-[0.08em] sm:tracking-[0.1em] text-[#482830] hover:text-[#211216] transition-all duration-300 flex items-center gap-1.5 cursor-pointer hover:-translate-y-0.5 focus:outline-none"
                 style={{
                   fontFamily: 'var(--font-serif)',
                   background: 'linear-gradient(145deg, #fef5f0 0%, #f0d6dc 100%)',
@@ -416,7 +416,7 @@ export const NaomiAboutMeCard: React.FC = () => {
               <button
                 type="button"
                 onClick={handleDiscordClick}
-                className="group/link px-4 py-1.5 text-xs font-medium lowercase tracking-[0.1em] text-[#482830] hover:text-[#211216] transition-all duration-300 flex items-center gap-1.5 cursor-pointer hover:-translate-y-0.5 focus:outline-none"
+                className="group/link px-3.5 py-1.5 text-xs font-medium lowercase tracking-[0.08em] sm:tracking-[0.1em] text-[#482830] hover:text-[#211216] transition-all duration-300 flex items-center gap-1.5 cursor-pointer hover:-translate-y-0.5 focus:outline-none"
                 style={{
                   fontFamily: 'var(--font-serif)',
                   background: 'linear-gradient(145deg, #fef5f0 0%, #f0d6dc 100%)',

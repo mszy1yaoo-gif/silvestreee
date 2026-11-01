@@ -135,7 +135,7 @@ export const NaomiTerritoryPage: React.FC = () => {
       </div>
 
       {/* 3. Layered Renaissance Storybook Outer Viewport Frame (Blush Gold Accents) */}
-      <div className="fixed inset-2 sm:inset-3.5 md:inset-5 pointer-events-none z-20">
+      <div className="fixed inset-1 sm:inset-3.5 md:inset-5 pointer-events-none z-20">
         {/* Outer Antique-Gold & Blush Rule */}
         <div
           className="absolute inset-0"
@@ -146,7 +146,7 @@ export const NaomiTerritoryPage: React.FC = () => {
         />
         {/* Inner Engraved Double Line */}
         <div
-          className="absolute inset-1.5 sm:inset-2"
+          className="absolute inset-1 sm:inset-2"
           style={{
             border: '0.8px solid rgba(196, 154, 134, 0.4)',
           }}
@@ -162,7 +162,7 @@ export const NaomiTerritoryPage: React.FC = () => {
           <svg
             key={idx}
             viewBox="0 0 90 90"
-            className={`absolute ${corner.pos} w-14 h-14 sm:w-20 sm:h-20 text-[#b57c86] opacity-85`}
+            className={`absolute ${corner.pos} w-10 h-10 sm:w-20 sm:h-20 text-[#b57c86] opacity-75 sm:opacity-85`}
             style={{ transform: corner.transform }}
             fill="none"
             aria-hidden="true"
@@ -243,7 +243,7 @@ export const NaomiTerritoryPage: React.FC = () => {
       </div>
 
       {/* 5B. Whimsical Hanging Silk Lantern with Cherry Blossoms (Top-Right Canopy) */}
-      <div className="fixed right-3 sm:right-6 md:right-12 lg:right-16 top-0 pointer-events-none select-none z-20">
+      <div className="fixed right-3 sm:right-6 md:right-12 lg:right-16 top-0 pointer-events-none select-none z-10 hidden md:block">
         <div className="w-[1px] h-8 sm:h-12 bg-gradient-to-b from-transparent via-[#c8929e] to-[#9a6572] mx-auto opacity-75" />
 
         <motion.div
@@ -296,14 +296,14 @@ export const NaomiTerritoryPage: React.FC = () => {
       </div>
 
       {/* 6. Continuous Illustrated Storybook Manuscript Container */}
-      <div className="relative z-10 w-full min-h-screen py-8 sm:py-12 px-4 sm:px-8 md:px-14 flex flex-col items-center justify-between">
+      <div className="relative z-10 w-full min-h-screen py-4 sm:py-12 px-2.5 sm:px-8 md:px-14 flex flex-col items-center justify-between">
         {/* Top Manuscript Folio Navigation Bar */}
         <motion.nav
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           aria-label="Điều hướng bản thảo Rừng Mộng"
-          className="w-full max-w-6xl flex items-center justify-between pb-3.5 px-2 border-b border-[#c89e96]/35"
+          className="w-full max-w-6xl flex items-center justify-between pb-3 px-1 sm:px-2 pt-14 sm:pt-0 border-b border-[#c89e96]/35"
         >
           {/* Back to Central Clearing */}
           <button
@@ -355,10 +355,10 @@ export const NaomiTerritoryPage: React.FC = () => {
         </motion.nav>
 
         {/* Continuous Manuscript Sheet uniting Header, Notice, About Me, Character Archive */}
-        <main className="relative w-full max-w-6xl my-6 sm:my-8">
+        <main className="relative w-full max-w-6xl my-4 sm:my-8 pt-2 sm:pt-4">
           {/* Outer Illuminated Manuscript Parchment Sheet */}
           <div
-            className="relative w-full px-4 sm:px-8 md:px-12 py-10 sm:py-14 overflow-visible"
+            className="relative w-full px-3 sm:px-8 md:px-12 py-6 sm:py-14 overflow-visible"
             style={{
               borderRadius: '5px 7px 5px 7px',
               background:

@@ -184,7 +184,7 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
                   role="dialog"
                   aria-modal="true"
                   aria-label="những lời nhắn để lại trong rừng ♡"
-                  className="relative w-full max-w-md max-h-[510px] flex flex-col p-5 sm:p-6 overflow-hidden select-none"
+                  className="relative w-full max-w-md max-h-[85vh] flex flex-col p-4 sm:p-6 overflow-hidden select-none my-auto"
                   style={{
                     borderRadius: '4px 6px 4px 6px',
                     background:

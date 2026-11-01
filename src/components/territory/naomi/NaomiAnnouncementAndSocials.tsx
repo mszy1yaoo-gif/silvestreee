@@ -157,7 +157,7 @@ export const NaomiAnnouncementAndSocials: React.FC = () => {
                   role="dialog"
                   aria-modal="true"
                   aria-label="Thông báo từ rừng mộng"
-                  className="relative w-full max-w-md p-6 sm:p-8 overflow-hidden select-none text-center"
+                  className="relative w-full max-w-md max-h-[85vh] overflow-y-auto p-5 sm:p-8 select-none text-center my-auto"
                   style={{
                     borderRadius: '4px 6px 4px 6px',
                     background:

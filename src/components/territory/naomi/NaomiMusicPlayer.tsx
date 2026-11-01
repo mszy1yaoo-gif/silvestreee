@@ -50,7 +50,7 @@ export const NaomiMusicPlayer: React.FC = () => {
           onClick={() => setIsExpanded(!isExpanded)}
           title={isPlaying ? 'Đang phát nhạc rừng mộng' : 'Mở máy phát nhạc'}
           aria-label="Toggle Forest Music Player"
-          className="group relative flex items-center gap-2 px-3 py-1.5 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
+          className="group relative flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
           style={{
             borderRadius: '3px',
             background: isPlaying
@@ -93,7 +93,7 @@ export const NaomiMusicPlayer: React.FC = () => {
               e.stopPropagation();
               handlePlayPause();
             }}
-            className="w-6 h-6 bg-[#fcf8ee] border border-[#c8ab84] flex items-center justify-center text-[0.68rem] text-[#523d28] hover:bg-[#f2e5ce] transition-colors ml-0.5"
+            className="w-5 h-5 sm:w-6 sm:h-6 bg-[#fcf8ee] border border-[#c8ab84] flex items-center justify-center text-[0.62rem] sm:text-[0.68rem] text-[#523d28] hover:bg-[#f2e5ce] transition-colors ml-0.5"
             style={{ borderRadius: '2px' }}
           >
             {isPlaying ? '⏸' : '▶'}
@@ -109,7 +109,7 @@ export const NaomiMusicPlayer: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 8 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-12 right-0 z-40 w-80 p-5 text-[#2c2016]"
+            className="absolute top-11 sm:top-12 right-0 z-40 w-[280px] xs:w-80 max-w-[calc(100vw-1.25rem)] p-4 sm:p-5 text-[#2c2016]"
             style={{
               borderRadius: '4px 6px 4px 6px',
               background:

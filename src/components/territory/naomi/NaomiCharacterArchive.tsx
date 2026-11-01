@@ -239,6 +239,9 @@ const StorybookCharacterCard: React.FC<{
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [attempts, setAttempts] = useState(0);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isIntroExpanded, setIsIntroExpanded] = useState(false);
+  const [isTagsExpanded, setIsTagsExpanded] = useState(false);
+  const isLongIntro = Boolean(char.intro && char.intro.length > 100);
 
   const theme = getCharacterTheme(char.tags, char.name, char.type, index, isNsfwSection);
   const hasFullPlot = Boolean(
@@ -302,7 +305,7 @@ const StorybookCharacterCard: React.FC<{
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => handleCardOrButtonClick(e, theme.flowerColor)}
-      className="group relative flex flex-col justify-between p-5 sm:p-6 transition-all duration-500 ease-out"
+      className="group relative flex flex-col justify-between p-3.5 sm:p-6 transition-all duration-500 ease-out"
       style={{
         borderRadius: theme.organicRadius,
         background: theme.cardBg,
@@ -494,15 +497,35 @@ const StorybookCharacterCard: React.FC<{
         </h3>
 
         {hasIntro && (
-          <p
-            className="mt-1.5 mb-2 text-[0.82rem] sm:text-[0.86rem] italic tracking-[0.02em] leading-relaxed px-1"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              color: isNsfwSection ? '#d6a3b0' : '#734852',
-            }}
-          >
-            &ldquo;{char.intro}&rdquo;
-          </p>
+          <div className="my-1.5 px-1">
+            <p
+              className={`text-[0.82rem] sm:text-[0.86rem] italic tracking-[0.02em] leading-relaxed ${
+                isLongIntro && !isIntroExpanded ? 'line-clamp-2 sm:line-clamp-none' : ''
+              }`}
+              style={{
+                fontFamily: 'var(--font-serif)',
+                color: isNsfwSection ? '#d6a3b0' : '#734852',
+              }}
+            >
+              &ldquo;{char.intro}&rdquo;
+            </p>
+            {isLongIntro && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsIntroExpanded(!isIntroExpanded);
+                }}
+                className="mt-1 text-[0.68rem] italic underline tracking-wide cursor-pointer focus:outline-none opacity-85 hover:opacity-100"
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  color: isNsfwSection ? '#e095a6' : '#a06472',
+                }}
+              >
+                {isIntroExpanded ? 'thu gọn ▴' : 'xem thêm ▾'}
+              </button>
+            )}
+          </div>
         )}
 
         {char.characterNote && (
@@ -533,49 +556,67 @@ const StorybookCharacterCard: React.FC<{
         )}
 
         {char.tags && char.tags.length > 0 && (
-          <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3">
-            {char.tags.map((tag, tIdx) => {
-              const lowerTag = tag.trim().toLowerCase();
-              const isTagActive = selectedTags.includes(lowerTag);
-              return (
-                <button
-                  key={tIdx}
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleTag(lowerTag);
-                  }}
-                  title={isTagActive ? `Bỏ lọc nhãn "${lowerTag}"` : `Lọc theo nhãn "${lowerTag}"`}
-                  className="px-2 py-0.5 text-[0.7rem] lowercase tracking-[0.05em] transition-all duration-300 cursor-pointer flex items-center gap-1 hover:-translate-y-0.5 focus:outline-none"
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    borderRadius: '2px',
-                    background: isTagActive
-                      ? isNsfwSection
-                        ? 'linear-gradient(145deg, #7a3848 0%, #592532 100%)'
-                        : 'linear-gradient(145deg, #ead0d6 0%, #d8b0b8 100%)'
-                      : isNsfwSection
-                        ? 'rgba(42, 24, 30, 0.85)'
-                        : 'rgba(254, 248, 246, 0.88)',
-                    color: isTagActive ? '#fff' : isNsfwSection ? '#e0b8c2' : '#6e3f4a',
-                    fontWeight: isTagActive ? 600 : 400,
-                    border: isTagActive
-                      ? '1px solid rgba(210, 138, 154, 0.9)'
-                      : isNsfwSection
-                        ? '1px solid rgba(118, 66, 80, 0.7)'
-                        : '1px solid rgba(206, 162, 172, 0.68)',
-                  }}
-                >
-                  <span
-                    className="text-[0.52rem] opacity-75"
-                    style={{ color: isTagActive ? '#ffd1db' : theme.vineColor }}
+          <div className="mt-3">
+            <div className="flex flex-wrap items-center justify-center gap-1.5">
+              {(isTagsExpanded ? char.tags : char.tags.slice(0, 4)).map((tag, tIdx) => {
+                const lowerTag = tag.trim().toLowerCase();
+                const isTagActive = selectedTags.includes(lowerTag);
+                return (
+                  <button
+                    key={tIdx}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleTag(lowerTag);
+                    }}
+                    title={isTagActive ? `Bỏ lọc nhãn "${lowerTag}"` : `Lọc theo nhãn "${lowerTag}"`}
+                    className="px-2 py-0.5 text-[0.68rem] sm:text-[0.7rem] lowercase tracking-[0.05em] transition-all duration-300 cursor-pointer flex items-center gap-1 hover:-translate-y-0.5 focus:outline-none"
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      borderRadius: '2px',
+                      background: isTagActive
+                        ? isNsfwSection
+                          ? 'linear-gradient(145deg, #7a3848 0%, #592532 100%)'
+                          : 'linear-gradient(145deg, #ead0d6 0%, #d8b0b8 100%)'
+                        : isNsfwSection
+                          ? 'rgba(42, 24, 30, 0.85)'
+                          : 'rgba(254, 248, 246, 0.88)',
+                      color: isTagActive ? '#fff' : isNsfwSection ? '#e0b8c2' : '#6e3f4a',
+                      fontWeight: isTagActive ? 600 : 400,
+                      border: isTagActive
+                        ? '1px solid rgba(210, 138, 154, 0.9)'
+                        : isNsfwSection
+                          ? '1px solid rgba(118, 66, 80, 0.7)'
+                          : '1px solid rgba(206, 162, 172, 0.68)',
+                    }}
                   >
-                    {isTagActive ? '✦' : '·'}
-                  </span>
-                  <span>{lowerTag}</span>
-                </button>
-              );
-            })}
+                    <span
+                      className="text-[0.52rem] opacity-75"
+                      style={{ color: isTagActive ? '#ffd1db' : theme.vineColor }}
+                    >
+                      {isTagActive ? '✦' : '·'}
+                    </span>
+                    <span>{lowerTag}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {char.tags.length > 4 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsTagsExpanded(!isTagsExpanded);
+                }}
+                className="mt-1.5 text-[0.65rem] italic tracking-wide cursor-pointer focus:outline-none opacity-80 hover:opacity-100 block mx-auto"
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  color: isNsfwSection ? '#c78292' : '#8c525f',
+                }}
+              >
+                {isTagsExpanded ? 'thu gọn nhãn ▴' : `+${char.tags.length - 4} nhãn khác ▾`}
+              </button>
+            )}
           </div>
         )}
 
@@ -1351,7 +1392,7 @@ export const NaomiCharacterArchive: React.FC = () => {
       {/* =====================================================================
           SEARCH & FILTER SYSTEM (Adapted to SFW vs NSFW Mood)
          ===================================================================== */}
-      <div className="relative z-20 max-w-4xl mx-auto mb-9 sm:mb-11 px-1 sm:px-4 space-y-5">
+      <div className="relative z-20 max-w-4xl mx-auto mb-6 sm:mb-11 px-0.5 sm:px-4 space-y-3.5 sm:space-y-5">
         {/* Search Field */}
         <div className="relative max-w-md mx-auto">
           <div
@@ -1569,7 +1610,7 @@ export const NaomiCharacterArchive: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch"
+            className="relative z-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-7 items-stretch"
           >
             <AnimatePresence mode="popLayout">
               {filteredCharacters.map((char, index) => {
