@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export interface CharacterComment {
   id: string;
-  characterName: string;
+  characterId?: string;
+  characterName?: string;
   nickname: string;
   comment: string;
   timestamp: number;
@@ -28,27 +29,32 @@ export function formatRelativeTime(timestamp: number): string {
 
 interface NaomiCharacterCommentsProps {
   characterName: string;
+  characterId: string;
   comments: CharacterComment[];
-  onAddComment: (characterName: string, nickname: string, commentText: string) => void;
+  onAddComment: (characterId: string, nickname: string, commentText: string) => Promise<boolean | void> | void;
   vineColor: string;
   flowerColor: string;
   innerBorder: string;
   glow: string;
+  onOpenPanel?: () => void;
 }
 
 export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
   characterName,
+  characterId,
   comments,
   onAddComment,
   vineColor,
   flowerColor,
   innerBorder,
   glow,
+  onOpenPanel,
 }) => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [nickname, setNickname] = useState('');
   const [commentText, setCommentText] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const scrollListRef = useRef<HTMLDivElement | null>(null);
 
   // Close panel on Escape key
@@ -63,9 +69,11 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isPanelOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (isSubmitting) return;
 
     const trimmedNick = nickname.trim();
     const trimmedComment = commentText.trim();
@@ -79,19 +87,27 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
       return;
     }
 
-    onAddComment(characterName, trimmedNick, trimmedComment);
-    setCommentText('');
-    setErrorMsg('');
+    try {
+      setIsSubmitting(true);
+      setErrorMsg('');
+      await onAddComment(characterId, trimmedNick, trimmedComment);
+      setCommentText('');
 
-    // Smoothly scroll the internal comment list to the newest note
-    window.setTimeout(() => {
-      if (scrollListRef.current) {
-        scrollListRef.current.scrollTo({
-          top: scrollListRef.current.scrollHeight,
-          behavior: 'smooth',
-        });
-      }
-    }, 60);
+      // Smoothly scroll the internal comment list to the newest note
+      window.setTimeout(() => {
+        if (scrollListRef.current) {
+          scrollListRef.current.scrollTo({
+            top: scrollListRef.current.scrollHeight,
+            behavior: 'smooth',
+          });
+        }
+      }, 80);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Không thể gửi bình luận, vui lòng thử lại';
+      setErrorMsg(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Subtle manuscript slip tilts
@@ -115,6 +131,7 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
             e.stopPropagation();
             setIsPanelOpen(true);
             setErrorMsg('');
+            onOpenPanel?.();
           }}
           className="group/note inline-flex items-center gap-1.5 px-3 py-1 text-[0.72rem] italic text-[#5e4a38] hover:text-[#2c1f14] transition-all duration-300 cursor-pointer hover:-translate-y-0.5 focus:outline-none"
           style={{
@@ -419,7 +436,10 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
                     <div className="flex justify-end pt-0.5">
                       <button
                         type="submit"
-                        className="px-4 py-1.5 text-xs font-medium lowercase tracking-[0.08em] text-[#382616] transition-all duration-300 hover:-translate-y-0.5 cursor-pointer flex items-center gap-1.5"
+                        disabled={isSubmitting}
+                        className={`px-4 py-1.5 text-xs font-medium lowercase tracking-[0.08em] text-[#382616] transition-all duration-300 flex items-center gap-1.5 ${
+                          isSubmitting ? 'opacity-60 cursor-not-allowed' : 'hover:-translate-y-0.5 cursor-pointer'
+                        }`}
                         style={{
                           fontFamily: 'var(--font-serif)',
                           borderRadius: '3px',
@@ -431,7 +451,7 @@ export const NaomiCharacterComments: React.FC<NaomiCharacterCommentsProps> = ({
                         <span className="text-[0.65rem]" style={{ color: vineColor }}>
                           ❦
                         </span>
-                        <span>gửi lời nhắn ♡</span>
+                        <span>{isSubmitting ? 'đang gửi... ♡' : 'gửi lời nhắn ♡'}</span>
                       </button>
                     </div>
                   </form>

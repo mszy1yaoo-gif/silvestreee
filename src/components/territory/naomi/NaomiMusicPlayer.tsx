@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { musicLibrary, MusicTrack } from '../../../data/musicLibrary';
 
@@ -14,26 +14,59 @@ function extractYouTubeId(url: string): string {
 
 export const NaomiMusicPlayer: React.FC = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true); // Automatically start playing upon entering Rừng Mộng
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
   const [volume, setVolume] = useState(70);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const playerRef = useRef<HTMLIFrameElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const currentTrack: MusicTrack = musicLibrary[currentTrackIndex] || musicLibrary[0];
   const videoId = extractYouTubeId(currentTrack.youtubeUrl);
 
+  // Global first-interaction unlock listener for mobile browser autoplay policies
+  useEffect(() => {
+    if (hasInteracted) return;
+
+    const handleFirstTouch = () => {
+      setHasInteracted(true);
+      setIsBlocked(false);
+      setIsPlaying(true);
+      window.removeEventListener('pointerdown', handleFirstTouch);
+      window.removeEventListener('keydown', handleFirstTouch);
+      window.removeEventListener('touchstart', handleFirstTouch);
+      window.removeEventListener('click', handleFirstTouch);
+    };
+
+    window.addEventListener('pointerdown', handleFirstTouch, { once: true, passive: true });
+    window.addEventListener('keydown', handleFirstTouch, { once: true });
+    window.addEventListener('touchstart', handleFirstTouch, { once: true, passive: true });
+    window.addEventListener('click', handleFirstTouch, { once: true });
+
+    return () => {
+      window.removeEventListener('pointerdown', handleFirstTouch);
+      window.removeEventListener('keydown', handleFirstTouch);
+      window.removeEventListener('touchstart', handleFirstTouch);
+      window.removeEventListener('click', handleFirstTouch);
+    };
+  }, [hasInteracted]);
+
   const handlePlayPause = () => {
+    setHasInteracted(true);
+    setIsBlocked(false);
     setIsPlaying(!isPlaying);
   };
 
   const handleNext = useCallback(() => {
     setCurrentTrackIndex((prev) => (prev + 1) % musicLibrary.length);
     setIsPlaying(true);
+    setHasInteracted(true);
   }, []);
 
   const handlePrev = useCallback(() => {
     setCurrentTrackIndex((prev) => (prev - 1 + musicLibrary.length) % musicLibrary.length);
     setIsPlaying(true);
+    setHasInteracted(true);
   }, []);
 
   return (
@@ -48,27 +81,44 @@ export const NaomiMusicPlayer: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          title={isPlaying ? 'Đang phát nhạc rừng mộng' : 'Mở máy phát nhạc'}
+          title={
+            isBlocked
+              ? 'Nhấn bất kỳ đâu để bật nhạc rừng mộng ♡'
+              : isPlaying
+              ? 'Đang phát nhạc rừng mộng'
+              : 'Mở máy phát nhạc'
+          }
           aria-label="Toggle Forest Music Player"
           className="group relative flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-0.5 focus:outline-none"
           style={{
             borderRadius: '3px',
-            background: isPlaying
+            background: isBlocked
+              ? 'linear-gradient(145deg, #fceee9 0%, #f4dcd6 100%)'
+              : isPlaying
               ? 'linear-gradient(145deg, #fbf4e4 0%, #eeddc2 100%)'
               : 'linear-gradient(145deg, #faf5e9 0%, #efe4cf 100%)',
-            border: isPlaying
+            border: isBlocked
+              ? '1px solid rgba(196, 126, 134, 0.88)'
+              : isPlaying
               ? '1px solid rgba(174, 136, 86, 0.88)'
               : '1px solid rgba(182, 152, 114, 0.72)',
-            boxShadow: isPlaying
+            boxShadow: isBlocked
+              ? '0 4px 14px rgba(120, 50, 60, 0.18), inset 0 0 10px rgba(255, 230, 235, 0.8)'
+              : isPlaying
               ? '0 4px 14px rgba(74, 52, 28, 0.14), inset 0 0 10px rgba(255, 244, 215, 0.8)'
               : '0 3px 10px rgba(64, 46, 28, 0.08)',
           }}
         >
           {/* Antique Musical Clef Ornament */}
           <span className="relative flex items-center justify-center text-sm sm:text-base text-[#6d5134]">
-            <span className={isPlaying ? 'animate-pulse' : ''}>𝄞</span>
-            {isPlaying && (
+            <span className={isPlaying && !isBlocked ? 'animate-pulse' : ''}>
+              {isBlocked ? '♫' : '𝄞'}
+            </span>
+            {isPlaying && !isBlocked && (
               <span className="absolute -top-0.5 -right-1 w-1.5 h-1.5 rounded-full bg-[#c98a4b] animate-ping" />
+            )}
+            {isBlocked && (
+              <span className="absolute -top-0.5 -right-1 w-1.5 h-1.5 rounded-full bg-[#b0586b] animate-pulse" />
             )}
           </span>
 
@@ -77,7 +127,7 @@ export const NaomiMusicPlayer: React.FC = () => {
               className="block text-[0.58rem] uppercase tracking-[0.18em] text-[#84694a]"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              carmen horti
+              {isBlocked ? 'chờ tương tác...' : 'carmen horti'}
             </span>
             <span
               className="block text-[0.76rem] text-[#3a2a1b] italic tracking-[0.03em] max-w-[105px] truncate"
@@ -96,7 +146,7 @@ export const NaomiMusicPlayer: React.FC = () => {
             className="w-5 h-5 sm:w-6 sm:h-6 bg-[#fcf8ee] border border-[#c8ab84] flex items-center justify-center text-[0.62rem] sm:text-[0.68rem] text-[#523d28] hover:bg-[#f2e5ce] transition-colors ml-0.5"
             style={{ borderRadius: '2px' }}
           >
-            {isPlaying ? '⏸' : '▶'}
+            {isPlaying && !isBlocked ? '⏸' : '▶'}
           </span>
         </button>
       </motion.div>
@@ -155,7 +205,7 @@ export const NaomiMusicPlayer: React.FC = () => {
                 className="text-[0.62rem] uppercase tracking-[0.2em] text-[#8c7050] block"
                 style={{ fontFamily: 'var(--font-serif)' }}
               >
-                ♫ đang ngân vang
+                {isBlocked ? '♫ chạm màn hình để phát nhạc' : '♫ đang ngân vang'}
               </span>
               <h4
                 className="text-base sm:text-lg text-[#342416] font-normal tracking-[0.06em] mt-1 capitalize"
@@ -184,7 +234,7 @@ export const NaomiMusicPlayer: React.FC = () => {
                 className="w-11 h-9 bg-[#ead7b9] border border-[#b89668] flex items-center justify-center text-[#362617] hover:bg-[#dfc7a3] transition-all cursor-pointer text-sm shadow-2xs"
                 style={{ borderRadius: '3px' }}
               >
-                {isPlaying ? '⏸' : '▶'}
+                {isPlaying && !isBlocked ? '⏸' : '▶'}
               </button>
 
               <button
@@ -229,6 +279,7 @@ export const NaomiMusicPlayer: React.FC = () => {
                   onClick={() => {
                     setCurrentTrackIndex(idx);
                     setIsPlaying(true);
+                    setHasInteracted(true);
                   }}
                   className={`w-full text-left px-2.5 py-1.5 text-xs transition-colors flex items-center justify-between cursor-pointer ${
                     currentTrackIndex === idx
@@ -243,7 +294,7 @@ export const NaomiMusicPlayer: React.FC = () => {
                   <span className="truncate">
                     {idx + 1}. {track.title || `bài hát ${idx + 1}`}
                   </span>
-                  {currentTrackIndex === idx && isPlaying && <span className="text-[0.7rem] text-[#8c6b42]">♫</span>}
+                  {currentTrackIndex === idx && isPlaying && !isBlocked && <span className="text-[0.7rem] text-[#8c6b42]">♫</span>}
                 </button>
               ))}
             </div>
@@ -251,14 +302,14 @@ export const NaomiMusicPlayer: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Hidden YouTube Iframe Embed for Reliable Audio Streaming */}
+      {/* Hidden YouTube Iframe Embed for Reliable Audio Streaming with Mobile Autoplay Fallback */}
       {videoId && (
         <div className="hidden absolute opacity-0 pointer-events-none w-0 h-0 overflow-hidden">
           <iframe
-            ref={playerRef}
+            ref={iframeRef}
             src={`https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&enablejsapi=1&loop=1&playlist=${videoId}`}
             title={currentTrack.title || 'YouTube audio stream'}
-            allow="autoplay"
+            allow="autoplay; encrypted-media"
           />
         </div>
       )}
